@@ -19,6 +19,7 @@ var specialChars = [' ', '!', '\"', '#', '$', '%', '&', '(', ')', '*',
                     '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?',
                     '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'];
 
+
 console.log(numbers);
 console.log(lowerCaseLetters);
 console.log(upperCaseLetters);
@@ -46,12 +47,35 @@ function generatePassword() {
   // capture user's preference to include numbers (yes/no)
   const useNumbers = confirm("Include numbers? Click OK if yes.");
   console.log("Use numbers: " + useNumbers);
+
+  // capture user's preference to include special chars (yes/no)
+  const useSpecialChars = confirm("Include special characters? Click OK if yes.");
+  console.log("Use special chars: " + useSpecialChars);
+
   
+  // create password of length passwordLength using above criteria
+  var pwd = [];
+  for (i = 0; i < passwordLength; i++) {
+    pwd[i] = "X";
+
+    // TO DO - add each type of character needed in pwd
+    // if lowercase= true and no lowercase, add lowercase
+    // if uppercase=true and no uppercase, add upsercase
+    // if number= true and no number, add number
+    // if specialchar=true and no specialchar, addspecialchar
+  }
+  console.log("New password: " + pwd);
+
+  return pwd.toString();
+
 }
 
 
 // Write password to the #password input
 function writePassword() {
+
+  console.log("I'm in writePassword!");
+
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
