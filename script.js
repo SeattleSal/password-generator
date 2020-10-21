@@ -46,24 +46,26 @@ function generatePassword() {
    // create password of length passwordLength using above criteria
   var pwd = [];
   var charCategory = 1;
-  var x;
-  for (i = 0; i < passwordLength; i++) {
-    pwd = pwd + lowerCaseLetters[randomNumber(lowerCaseLetters)];
-    i++;
+  while(pwd.length < passwordLength) {
+    if(useLowerCase && pwd.length < passwordLength) {
+      pwd = pwd + lowerCaseLetters[randomNumber(lowerCaseLetters)];
+    }
 
-    pwd = pwd + upperCaseLetters[randomNumber(upperCaseLetters)];
-    i++;
+    if(useUpperCase && pwd.length < passwordLength) {
+      pwd = pwd + upperCaseLetters[randomNumber(upperCaseLetters)];
+    }
 
-    pwd = pwd + numbers[randomNumber(numbers)];
-    i++;
+    if(useNumbers && pwd.length < passwordLength) {
+      pwd = pwd + numbers[randomNumber(numbers)];
+    }
 
-    pwd = pwd + specialChars[randomNumber(specialChars)];
+    if(useSpecialChars && pwd.length < passwordLength) {
+      pwd = pwd + specialChars[randomNumber(specialChars)];
+    }
+
+    console.log("Password length: " + pwd.length);
     console.log(pwd);
 
-    // if lowercase= true and no lowercase, add lowercase
-    // if uppercase=true and no uppercase, add upsercase
-    // if number= true and no number, add number
-    // if specialchar=true and no specialchar, addspecialchar
   }
   console.log("New password: " + pwd);
 
@@ -74,8 +76,6 @@ function generatePassword() {
 
 // Write password to the #password input
 function writePassword() {
-
-  console.log("I'm in writePassword!");
 
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
