@@ -1,29 +1,20 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-// array list of numbers
+// arrays of character types numbers, lower case letters, upper case letters and special character
 var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var lowerCaseLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var upperCaseLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I','J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+var specialChars = [' ', '!', '\"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'];
 
-// array list of lowercase letters
-var lowerCaseLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-                't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
-// array list of UPPERCASE letters
-var upperCaseLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-                      'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-                      'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
-// array list of special characters
-var specialChars = [' ', '!', '\"', '#', '$', '%', '&', '(', ')', '*',
-                    '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?',
-                    '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'];
-
-
-console.log(numbers);
-console.log(lowerCaseLetters);
-console.log(upperCaseLetters);
-console.log(specialChars);
+// variables to capture if the created pwd contains the user preferences
+// default to false and will change to true when char type is added to pwd
+var containsNumbers = false;
+var containsLowerCase = false;
+var containsUpperCase = false;
+var containsSpecialChars = false;
+// console.log("contains... numbers: " + containsNumbers + " , lowercase: " + containsLowerCase +
+//               " , upper: " + containsUpperCase + " , specialchars: " + containsSpecialChars);
 
 function generatePassword() {
   // variables for user input - create and store while gathering user input
@@ -36,29 +27,45 @@ function generatePassword() {
   }
   console.log("Password length " + passwordLength);
 
-  // capture user's preference to include lower case letters (yes/no)
+  // Confirm user's preferences for the following to include:
+  // 1/ lower case letters (yes/no)
+  // 2/ upper case letters (yes/no)
+  // 3/ numbers (yes/no)
+  // 4/ special characters (yes/no)
   const useLowerCase = confirm("Include lower case letters? Click OK if yes.");
   console.log("Include lowerCase: " + useLowerCase);
-
-  // capture user's preference to include upper case letters (yes/no)
   const useUpperCase = confirm("Include upper case letters? Click OK if yes.");
   console.log("Include upperCase: " + useUpperCase);
-
-  // capture user's preference to include numbers (yes/no)
   const useNumbers = confirm("Include numbers? Click OK if yes.");
   console.log("Use numbers: " + useNumbers);
-
-  // capture user's preference to include special chars (yes/no)
   const useSpecialChars = confirm("Include special characters? Click OK if yes.");
   console.log("Use special chars: " + useSpecialChars);
-
-  
+ 
   // create password of length passwordLength using above criteria
   var pwd = [];
+  var charCategory = 1;
+  var x;
   for (i = 0; i < passwordLength; i++) {
-    pwd[i] = "X";
+    x = randomNumber(lowerCaseLetters);
+    console.log("random number: " + x);
+    pwd = pwd + lowerCaseLetters[x];
+    i++;
 
-    // TO DO - add each type of character needed in pwd
+    x = randomNumber(upperCaseLetters);
+    console.log("random number: " + x);
+    pwd = pwd + upperCaseLetters[x];
+    i++;
+
+    x = randomNumber(numbers);
+    console.log("random number: " + x);
+    pwd = pwd + numbers[x];
+    i++;
+
+    x = randomNumber(specialChars);
+    console.log("random number: " + x);
+    pwd = pwd + specialChars[x];
+    console.log(pwd);
+
     // if lowercase= true and no lowercase, add lowercase
     // if uppercase=true and no uppercase, add upsercase
     // if number= true and no number, add number
@@ -81,6 +88,12 @@ function writePassword() {
 
   passwordText.value = password;
 
+}
+
+// random number generator with input
+// range is 0 to length of array - 1
+function randomNumber(arr) {
+  return Math.floor((Math.random() * (arr.length - 1) + 1));
 }
 
 
