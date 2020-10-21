@@ -9,9 +9,9 @@ var specialChars = [' ', '!', '\"', '#', '$', '%', '&', '(', ')', '*', '+', ',',
 
 // variables to capture if the created pwd contains the user preferences
 // default to false and will change to true when char type is added to pwd
-var containsNumbers = false;
 var containsLowerCase = false;
 var containsUpperCase = false;
+var containsNumbers = false;
 var containsSpecialChars = false;
 // console.log("contains... numbers: " + containsNumbers + " , lowercase: " + containsLowerCase +
 //               " , upper: " + containsUpperCase + " , specialchars: " + containsSpecialChars);
@@ -33,37 +33,31 @@ function generatePassword() {
   // 3/ numbers (yes/no)
   // 4/ special characters (yes/no)
   const useLowerCase = confirm("Include lower case letters? Click OK if yes.");
-  console.log("Include lowerCase: " + useLowerCase);
   const useUpperCase = confirm("Include upper case letters? Click OK if yes.");
-  console.log("Include upperCase: " + useUpperCase);
   const useNumbers = confirm("Include numbers? Click OK if yes.");
-  console.log("Use numbers: " + useNumbers);
   const useSpecialChars = confirm("Include special characters? Click OK if yes.");
+  
+  console.log("User preferences: ")
+  console.log("Include lowerCase: " + useLowerCase);
+  console.log("Include upperCase: " + useUpperCase);
+  console.log("Use numbers: " + useNumbers);
   console.log("Use special chars: " + useSpecialChars);
  
-  // create password of length passwordLength using above criteria
+   // create password of length passwordLength using above criteria
   var pwd = [];
   var charCategory = 1;
   var x;
   for (i = 0; i < passwordLength; i++) {
-    x = randomNumber(lowerCaseLetters);
-    console.log("random number: " + x);
-    pwd = pwd + lowerCaseLetters[x];
+    pwd = pwd + lowerCaseLetters[randomNumber(lowerCaseLetters)];
     i++;
 
-    x = randomNumber(upperCaseLetters);
-    console.log("random number: " + x);
-    pwd = pwd + upperCaseLetters[x];
+    pwd = pwd + upperCaseLetters[randomNumber(upperCaseLetters)];
     i++;
 
-    x = randomNumber(numbers);
-    console.log("random number: " + x);
-    pwd = pwd + numbers[x];
+    pwd = pwd + numbers[randomNumber(numbers)];
     i++;
 
-    x = randomNumber(specialChars);
-    console.log("random number: " + x);
-    pwd = pwd + specialChars[x];
+    pwd = pwd + specialChars[randomNumber(specialChars)];
     console.log(pwd);
 
     // if lowercase= true and no lowercase, add lowercase
