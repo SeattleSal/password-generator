@@ -17,26 +17,32 @@ var containsSpecialChars = false;
 //               " , upper: " + containsUpperCase + " , specialchars: " + containsSpecialChars);
 
 function generatePassword() {
-  // variables for user input - create and store while gathering user input
-  // pwd length
-  const passwordLength = prompt("How long for your password? Enter number between 8 and 128 please.");
-
-  // TO DO: add length check if user enters wrong number multiple times
-  if (passwordLength < 8 || passwordLength > 128) {
-    passwordLength = prompt("Please enter a length between 8 and 128!");
+  // Get user input for pwd length
+  // If input is not a number or not in range, reprompt user until input is ok
+  var passwordLength = prompt("How long for your password? Enter number between 8 and 128 please.");
+  while (isNaN(passwordLength) || (passwordLength < 8 || passwordLength > 128)) {
+      passwordLength = prompt("Please enter a length between 8 and 128!");
   }
-  console.log("Password length " + passwordLength);
+
+  console.log("Password length: " + passwordLength);
 
   // Confirm user's preferences for the following to include:
   // 1/ lower case letters (yes/no)
   // 2/ upper case letters (yes/no)
   // 3/ numbers (yes/no)
   // 4/ special characters (yes/no)
-  const useLowerCase = confirm("Include lower case letters? Click OK if yes.");
-  const useUpperCase = confirm("Include upper case letters? Click OK if yes.");
-  const useNumbers = confirm("Include numbers? Click OK if yes.");
-  const useSpecialChars = confirm("Include special characters? Click OK if yes.");
-  
+  var useLowerCase = confirm("Include lower case letters? Click OK if yes.");
+  var useUpperCase = confirm("Include upper case letters? Click OK if yes.");
+  var useNumbers = confirm("Include numbers? Click OK if yes.");
+  var useSpecialChars = confirm("Include special characters? Click OK if yes.");
+
+  //  If user chooses none of the character types, assign a character type for them.
+  // TO DO: is there a better way to do this? prompt for which they want instead?
+   if (!useLowerCase && !useUpperCase && !useNumbers && !useSpecialChars) {
+      alert("You have chosen no character types. Password will be made of special characters.")
+      useSpecialChars = true;
+   }
+
   console.log("User preferences: ")
   console.log("Include lowerCase: " + useLowerCase);
   console.log("Include upperCase: " + useUpperCase);
@@ -47,6 +53,7 @@ function generatePassword() {
   var pwd = [];
   var charCategory = 1;
   while(pwd.length < passwordLength) {
+
     if(useLowerCase && pwd.length < passwordLength) {
       pwd = pwd + lowerCaseLetters[randomNumber(lowerCaseLetters)];
     }
@@ -62,11 +69,10 @@ function generatePassword() {
     if(useSpecialChars && pwd.length < passwordLength) {
       pwd = pwd + specialChars[randomNumber(specialChars)];
     }
-
-    console.log("Password length: " + pwd.length);
-    console.log(pwd);
-
+    console.log("building pwd: " +pwd);
+    
   }
+  console.log("Password length: " + pwd.length);
   console.log("New password: " + pwd);
 
   return pwd.toString();
