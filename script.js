@@ -39,17 +39,12 @@ function generatePassword() {
   //  If user chooses none of the character types, assign a character type for them.
   // TO DO: is there a better way to do this? prompt for which they want instead?
    if (!useLowerCase && !useUpperCase && !useNumbers && !useSpecialChars) {
-      alert("You have chosen no character types. Password will be made of special characters.")
-      useSpecialChars = true;
+      alert("You have chosen no character types. Please try again.")
+      // useSpecialChars = true;
+      return pwd.toString;
    }
 
-  console.log("User preferences: ")
-  console.log("Include lowerCase: " + useLowerCase);
-  console.log("Include upperCase: " + useUpperCase);
-  console.log("Use numbers: " + useNumbers);
-  console.log("Use special chars: " + useSpecialChars);
- 
-   // create password of length passwordLength using above criteria
+  // create password of length passwordLength using above criteria
   var pwd = [];
   var charCategory = 1;
   while(pwd.length < passwordLength) {
