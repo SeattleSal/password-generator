@@ -63,11 +63,8 @@ function generatePassword() {
     if(useSpecialChars && pwd.length < passwordLength) {
       pwd = pwd + specialChars[randomNumber(specialChars)];
     }
-    // console.log("building pwd...: " +pwd);
     
   }
-  // console.log("Password length: " + pwd.length);
-  // console.log("New password: " + pwd);
 
   return pwd.toString();
 }
