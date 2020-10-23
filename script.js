@@ -1,5 +1,8 @@
-// Assignment Code
+// password generator js code
+// grab elements from html to capture button clicks and
+// populate text area
 var generateBtn = document.querySelector("#generate");
+var textareaEl = document.querySelector("textarea");
 
 // arrays of character types numbers, lower case letters, upper case letters and special character
 var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -13,18 +16,17 @@ var containsLowerCase = false;
 var containsUpperCase = false;
 var containsNumbers = false;
 var containsSpecialChars = false;
-// console.log("contains... numbers: " + containsNumbers + " , lowercase: " + containsLowerCase +
-//               " , upper: " + containsUpperCase + " , specialchars: " + containsSpecialChars);
 
+// generatePassword function
+// Get user input for pwd preferences and generate password of preferred length with preferences for characters
 function generatePassword() {
+
   // Get user input for pwd length
   // If input is not a number or not in range, reprompt user until input is ok
   var passwordLength = prompt("How long for your password? Enter number between 8 and 128 please.");
   while (isNaN(passwordLength) || (passwordLength < 8 || passwordLength > 128)) {
       passwordLength = prompt("Please enter a length between 8 and 128!");
   }
-
-  console.log("Password length: " + passwordLength);
 
   // Confirm user's preferences for the following to include:
   // 1/ lower case letters (yes/no)
@@ -36,17 +38,14 @@ function generatePassword() {
   var useNumbers = confirm("Include numbers? Click OK if yes.");
   var useSpecialChars = confirm("Include special characters? Click OK if yes.");
 
-  //  If user chooses none of the character types, assign a character type for them.
-  // TO DO: is there a better way to do this? prompt for which they want instead?
+  // If user chooses none of the character types, alert them no character types were chosen and end.
    if (!useLowerCase && !useUpperCase && !useNumbers && !useSpecialChars) {
       alert("You have chosen no character types. Please try again.")
-      // useSpecialChars = true;
       return pwd.toString;
    }
 
   // create password of length passwordLength using above criteria
-  var pwd = [];
-  var charCategory = 1;
+  var pwd = "";
   while(pwd.length < passwordLength) {
 
     if(useLowerCase && pwd.length < passwordLength) {
@@ -64,37 +63,33 @@ function generatePassword() {
     if(useSpecialChars && pwd.length < passwordLength) {
       pwd = pwd + specialChars[randomNumber(specialChars)];
     }
-    console.log("building pwd: " +pwd);
+    console.log("building pwd...: " +pwd);
     
   }
   console.log("Password length: " + pwd.length);
   console.log("New password: " + pwd);
 
   return pwd.toString();
-
 }
 
-
-// Write password to the #password input
+// writePassword
+// Write password to the #password input to be added to HTML display
 function writePassword() {
-
+  
+  // call generatePassword function to create password
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
+  
   passwordText.value = password;
-
 }
 
-// random number generator with input
-// range is 0 to length of array - 1
+// randomNumber
+// Input is an array, returns random number between 0 to length of array - 1
 function randomNumber(arr) {
   return Math.floor((Math.random() * (arr.length - 1) + 1));
 }
 
-
-// Add event listener to generate button
-// function writePassword is tied to event listener so will run
-// in eventListener
+// Listener on "Generate Password" button in html
 generateBtn.addEventListener("click", writePassword);
 
 
